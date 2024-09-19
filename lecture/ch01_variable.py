@@ -40,4 +40,55 @@ print("Hello \npython")
 # - num = 5
 # - type을 정의 하지 않음(동적 타이핑 언어)
 # - =(대입연산자) : 우측의 값을 좌측에 대입
+# - 초기화: 초기 변수를 생성하면 변수를 생성한 메모리 공간에
+#          쓰레기 파일들이 존재, 변수에 값을 대입하면
+#          쓰레기 파일들이 삭제(초기화) 돼고 값만 저장
  
+ 
+#  6. 상수
+# - 값이 변하지 않음
+# - 변수 선언 및 초기화를 항상 함께
+# - 전부 대문자 사용!
+num = 3         # 변수 
+MAX_VALUE = 30  # 상수
+
+# 7. 명명규칙(Naming Rule)
+# - 변수, 함수, 클래스 등 사용자 정의 이름에 사용!
+# - 명확하고 알아보기 쉽게 작성할 것!
+# 
+# 1. 영어 대소문자, 숫자, 특수문자(_, -)만 사용!
+# 2. 숫자로 시작못함
+#   abc123(o) , 123abc(x)
+# 3. 영어 대소문자 구별
+#   abc != Abc != aBc != abC
+# 4. 예약어 사용불가
+#   *예약어: 프로그래밍 언어에서 이미 사용하고 있는 이름
+#   for, while, if, print, class, return, def, ...
+#   굳이 노력해서 쓸려고 하지 마시길...
+
+# 8. 네이미 메서드(Naming Method)
+# - 변수, 함수, 클래스 등의 사용자 정의 이름에 가용하는 기법
+# - 프로그래밍 언어별로 Naming Method가 다름
+
+studentnumber
+
+# 가. PascalCase (StudentNumber)
+# 나. camelCase  (studentNumber)
+# 다. snake_case (student_number)
+# 라. kebeb-case (student-number)
+
+#           변수            함수            클래스
+# JAVA      카멜            카멜            파스칼
+# PYTHON    스네이크        스네이크         파스칼
+
+# 9. 동적 출력
+student_num = 24
+name = "홍길동"
+
+print("조선대학교 24학번 홍길동입니다.")  # 하드코딩(지양)
+
+# 가. format() - old
+print("조선대학교 {}학번 {}입니다.".format(student_num, name))
+# 나. f-string - new
+print(f"조선대학교 {student_num}학번 {name}입니다.")
+
