@@ -70,7 +70,7 @@ MAX_VALUE = 30  # 상수
 # - 변수, 함수, 클래스 등의 사용자 정의 이름에 가용하는 기법
 # - 프로그래밍 언어별로 Naming Method가 다름
 
-studentnumber
+
 
 # 가. PascalCase (StudentNumber)
 # 나. camelCase  (studentNumber)

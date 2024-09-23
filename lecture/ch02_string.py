@@ -58,9 +58,15 @@ print(intro.find("Hi"))      # -1
 #         "cherry01@gmail.com", 
 #         "cherry0@gmail.com"에서
 #         아이디만 추출하는 코드 작성
+data = str(input())
+word = list(data.split("@"))
+print(word[0])
 
 #문제2. 도메인 추출하는 코드 작성
 # www.naver.com
 # www.daum.net
-# www.google.come=
+# www.google.com
 # 도메인만 추출
+data = str(input())
+word = list(data.split("."))
+print(word[1])
