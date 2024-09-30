@@ -137,3 +137,14 @@ a = [1,2,3,4,5,4,3,2,1]
 print(a)
 print(list(set(a)))
 
+# 숙제
+a = 10
+b = 50
+# 코드 작성
+tmp = 10
+a = b
+b= tmp
+
+print(a)  # 50출력
+print(b)  # 10출력 
+
