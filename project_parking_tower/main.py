@@ -62,15 +62,17 @@ while 1:
             break
         tower[in_car_floor-1] = in_car_num
     elif select_num == 2:
-        out_car = input(">> 출고할 차량번호를 입력해주세요: ")
+        out_car = int(input(">> 출고할 차량번호를 입력해주세요: "))
         if out_car in tower:
-            tower.remove(out_car)
-            print(">> 차량 출고 성공!")
+            for i in range(max_car):
+                if out_car == tower[i]:
+                    tower[i] = ""
+                    print(">> 출고 성공!")
         else:
-            print("존재하지 않는 차량번호입니다.")
+            print(">> 존재하지 않는 차량번호입니다.")
     elif select_num == 3:
         for i in range(max_car,0,-1):
-            print(f"{i}층: {tower[i-1]}")
+            print(f"{i}층: {tower[i-2]}")
     elif select_num == 4:
         print(">> 프로그램을 종료합니다.")
         exit()
