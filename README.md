@@ -29,7 +29,17 @@
  - [Ctrl] + [,] : settings 열기
  - [Ctrl] + [`] : 터미널 열기
 
+## 2. 데이터베이스(Database)
+-  데이터를 효율적으로 관리하고 저장하는 시스템
 
+### 2-1. DBMS(데이터베이스 관리 시스템)
+1. 관계형 DB(RDB)
+   - 표(Table) 형태
+   - MariaDB, Oracle, MySQL, PostreSQL
+
+2. NoSQL
+   - 자유 형태
+   - MongoDB
 
 
 
