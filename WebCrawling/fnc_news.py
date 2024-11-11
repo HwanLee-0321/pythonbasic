@@ -10,6 +10,16 @@ def get_news_info(url: str):
     content = ""
     for text in contents:
         content += text.get_text()
+    
+    # 기자O: "span.txt_info" → [0]기자, [1]날짜
+    # 기자X: "span.txt_info" → [0]날짜
+    writer_list = doc.select("span.txt_info")
+    
+    if len(writer_list) < 2:
+        writer = " "
+    else:
+        writer = writer_list[0].get_text()
+    
     writer = doc.select("span.txt_info")[0].get_text()
     reg_date = doc.select("span.num_date")[0].get_text()
     list_date = reg_date.split('.')

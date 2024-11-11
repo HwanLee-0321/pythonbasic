@@ -3,7 +3,7 @@
 ## Wirter:  HwanLee                                                 ##     
 ## Company: 조선대학교                                               ##
 ## Reg_date: 2024.10.14                                             ## 
-## Update_date: 2024.10.14                                          ## 
+## Update_date: 2024.10.17                                          ## 
 ## License: None                                                    ##     
 ## Contents: 콘솔 프로그래밍을 활용한 커피 점문점에서 사용하는 키오스크  ##
 ######################################################################
@@ -89,8 +89,29 @@ while True:
         sub_order = select_menu(3)
         order_list.append([bakery_menu[sub_order], bakery_price[sub_order]])
         
-    for item in order_list:
-        print(f"주문기록: {item}")
+    print(">> MSG: 추가 주문하시겠습니까?")
+    while 1:
+        yn = input(">> y/n ").lower()
         
+        if yn == "y":
+            break
+        elif yn == "n":
+            break
+        else:
+            print(">> WARNINGS: 올바른 값을 입력하세요.")
     
-        
+    # 7. 추가 주문 y/n 선택
+    if yn == "y":
+        continue  # 추가 주문(다음 반복으로 넘기기)
+    if yn == "n":
+        # 8. 주문내역 출력하기
+        total = 0
+        print("== 주문 내역 ==")
+        for i, item in enumerate(order_list):
+            total += item[1]
+            # item → [메뉴, 가격] / item[0]: 메뉴 / item[1]: 가격
+            print(f"{i+1}. {item[0]}({item[1]})")
+        print(f"총 {len(order_list)}건으로")
+        print(f"결제금액은 {total}입니다.")
+        print("ㅅㄱㅂ")
+        break        

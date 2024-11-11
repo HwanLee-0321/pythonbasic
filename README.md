@@ -38,19 +38,66 @@
  - MariaDB, Oracle, MySQL, PostreSQL
 
 2. NoSQL
- - 자유 형태
- - MongoDB
+  - 자유 형태
+  - MongoDB
 
-### 2-2: SQL(구조질의어)
+### 2-2. SQL(구조질의어)
+ - DBMS에게 명령을 내리기 위한 언어
+ - 예) SELECT * FROM tbl_uesr;
 
+### 2-3. 설치 방법
+ 1. 로컬 설치(설치파일 다운로드 직접 설치)
+ 2. 로컬 도커
+ 3. 클라우드 
 
+### 2-4. 데이터베이스 구조
+ 1. DBMS(데이터베이스 관리 시스템) → MariaDB, MySQL, Oracle, PostgreSQL
+     ㄴ database → chosun
+           ㄴ Table(표) → tbl_news
 
+  예) database는 프로젝트 단위(일반적)
+  Database(쇼핑몰)
+      ㄴ Table(회원)
+      ㄴ Table(상품)
+      ㄴ Table(구매)
+      ㄴ Table(게시판)
+      ㄴ Table(고객센터)
 
+### 2-5. 데이터베이스 연결
+ - python ↔ Database
+ 1. SQL 매핑: SQL작성해서 사용하는 방법
+ 2. ORM(Object Realationship Mapping): 객체를 사용하는 방법
+ * 실무 → ORM 많이 사용
+   ㄴ SQL 복잡도 증가 한계 → SQL 매핑       
 
+### 2-6. SQL 매핑
+ 1. Connection 맺기(IP, PORT, ID, PW)
+    ㄴ python - Database 연결(다리 건설)
+      → IP: 컴퓨터의 주소
+      → PORT: 프로그램마다 포트(3306)
+      → ID & PW: 인증
+ 2. Worker 생성(Cursor 객체)
+ 3. Job 생성(SQL 작성)
+ 4. Execute(실행 → Worker + Job)
+ 5. 결과
 
+## 3. 도커
+ - 컨테이너 가상화 기술을 사용할 수 있는 프로그램
+ - 컨테이너를 사용하기 위해서는 → 도커엔질 + 도커이미지
+ - 도커이미지 → 도커 컨테이너의 설계 도면
+ - 도커엔진 → 도커 이미지대로 컨테이너를 만들어서 실행
 
+### 3-1. 도커 명령어
 
+# 국가공인
+## - SQLD → SQL + DB
+## - ADsp → 데이터분석 + 머신러닝
+## - 리눅스마스터 1급 → 기초 리눅스
 
+# 국제
+## - Docker(도커)
+## - AWS 
+## - OCP(오라클)
 
 ## 99. 전체 시스템 구조(학습용) - WEB/APP
 -Client-Server 구조
