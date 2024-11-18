@@ -1,117 +1,97 @@
-######################################################################
-## Project: 조선벅스                                                 ##
-## Wirter:  HwanLee                                                 ##     
-## Company: 조선대학교                                               ##
-## Reg_date: 2024.10.14                                             ## 
-## Update_date: 2024.10.17                                          ## 
-## License: None                                                    ##     
-## Contents: 콘솔 프로그래밍을 활용한 커피 점문점에서 사용하는 키오스크  ##
-######################################################################
+## 프로젝트     : kisok_ice
+## 작성자       : 방승우
+## 최초생성     : 2024년 10월 14일
+## 마지막 수정  : 2024년 10월 14일
+## 내용 : 아이스크림을 판매하는 키오스크이 메인 프로그램
+## + 회사명
+## + 라이센스
 
-# 키오스크
+from service_kiosk import print_sub_menu, input_menu_num
 
-# 1. 메인 메뉴 출력(커피, 스무디, 베이커리)
-# 2. 메인 메뉴 선택(사용자)
-# 3. 서브 메뉴 출력(커피 or 스무디 or 베이커리)
-# 4. 서브 메뉴 선택(사용자)
-# 5. 고객 주문 메뉴 목록에 저장(서브 메뉴)
-# 6. 추가 주문 여부(Yes or No)
-# 7-1. Yes: 1번으로 보내기
-# 7-2. No: 최종주문 내역으로 보내기
-# 8. 최종주문 내역 출력
-
-from service_kiosk import print_menu, select_menu
-
-###################
-## 1. 메뉴 만들기 ##
-###################
-
+##########################
+## 1. 메뉴와 가격표 생성 #
+##########################
+# Dict 타입 생성 → 향후 "데이터 베이스" 사용
+#  - 메인 메뉴
 main_menu = {
-    1: "커피",
-    2: "스무디",
-    3: "베이커리"
-} 
-coffee_menu = {
-    1: "에스프레소",
-    2: "아메리카노"
+    1: "아이스크림",
+    2: "음료",
+    3: "디저트"
 }
-coffee_price = {
-    1: 3500,
-    2: 4000,
+#  - 서브 메뉴
+icecream_menu = {
+    1: "chocolate",
+    2: "vallia",
+    3: "strawberry"
 }
-smoothie_menu = {
-    1: "딸기 스무디",
-    2: "망고 스무디",
-    3: "블루베리 스무디",
-    4: "키위 스무디",
+drink_menu = {
+    1: "coffee",
+    2: "latte",
+    3: "ade"
 }
-smoothie_price = {
-    1: 5500,
-    2: 6000,
-    3: 5000,
-    4: 6500,
+desert_menu = {
+    1: "honey_bread",
+    2: "cup_cake",
+    3: "pastry"
 }
-bakery_menu = {
-    1: "조각 케이크",
-    2: "롤 케이크",
-    3: "샌드위치",
+#  - 서브 메뉴 가격
+iceream_price = {
+    1: 4500,
+    2: 4500,
+    3: 4500
 }
-bakery_price = {
-    1: 6500,
-    2: 5500,
-    3: 5000,
+drink_price ={
+    1: 1500,
+    2: 3000,
+    3: 2500
+}
+desert_price = {
+    1: 5000,
+    2: 3500,
+    3: 2500
 }
 
-order_list = []  # 고객 주문 기록
+# 사용자가 주문한 메뉴 목록
+order_list = []
+
+######################
+## 2. 메인 메뉴 출력 ##
+######################
 
 while True:
-    # 1. 메인메뉴 출력 
-    print("★" * 50)
-    print("★★ 별다방 조선")
-    print_menu(main_menu, 3)
-
-    # 2. 메뉴 선택 기능
-    order = select_menu(3)
-
-    # 3.4. 서브메뉴 출력 및 선택
-    if order == 1:      # 커피
-        print_menu(coffee_menu, 2)
-        sub_order = select_menu(2)
-        order_list.append([coffee_menu[sub_order], coffee_price[sub_order]])
-                
-    elif order == 2:    # 스무디
-        print_menu(smoothie_menu, 4)
-        sub_order = select_menu(4)
-        order_list.append([smoothie_menu[sub_order], smoothie_price[sub_order]])
-        
-    elif order == 3:    # 베이커리
-        print_menu(bakery_menu, 3)
-        sub_order = select_menu(3)
-        order_list.append([bakery_menu[sub_order], bakery_price[sub_order]])
-        
-    print(">> MSG: 추가 주문하시겠습니까?")
-    while 1:
-        yn = input(">> y/n ").lower()
-        
-        if yn == "y":
-            break
-        elif yn == "n":
-            break
-        else:
-            print(">> WARNINGS: 올바른 값을 입력하세요.")
+    print("●" * 50)
+    print("●● == 베스킨 조선 ==")
+    print("●● 1. 아이스크림")
+    print("●● 2. 음료")
+    print("●● 3. 디저트")
+    print(">> MSG: 메뉴를 선택해주세요")
     
-    # 7. 추가 주문 y/n 선택
-    if yn == "y":
-        continue  # 추가 주문(다음 반복으로 넘기기)
-    if yn == "n":
-        # 8. 주문내역 출력하기
-        total = 0
-        print("== 주문 내역 ==")
-        for i, item in enumerate(order_list):
-            total += item[1]
-            # item → [메뉴, 가격] / item[0]: 메뉴 / item[1]: 가격
-            print(f"{i+1}. {item[0]}({item[1]})")
-        print(f"총 {len(order_list)}건으로")
-        print(f"결제금액은 {total}입니다.")
-        print("ㅅㄱㅂ")
-        break        
+    order = input_menu_num(3)
+        
+    if order == 1:      # 서브 : 아이스크림
+        print_sub_menu(icecream_menu, iceream_price, 3)
+        sub_order = input_menu_num(3)
+        # ex) ["vallia", 4500]
+        order_list.append([icecream_menu[sub_order], iceream_price[sub_order]])
+    elif order == 2:    # 서브 : 음료   
+        print_sub_menu(drink_menu, drink_price, 3)
+        sub_order = input_menu_num(3)
+        order_list.append([drink_menu[sub_order], drink_price[sub_order]])
+    elif order == 3:    # 서브 : 디저트
+        print_sub_menu(desert_menu, desert_price, 3)
+        sub_order = input_menu_num(3)
+        order_list.append([desert_menu[sub_order], desert_price[sub_order]])
+    
+    # 추가 주문할거냐?
+    # input () y / n : yes or no
+    # y : 추가 주문
+    # n : 결제하는 곳으로 가기
+    
+    add_order = input("추가 주문을 하시겠습니까? (y/n) : ")
+    if add_order == 'y':
+        pass
+    else:
+        pass
+    
+    for item in order_list:
+        print(item)
