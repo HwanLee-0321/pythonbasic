@@ -55,20 +55,28 @@ st.markdown("<hr>", unsafe_allow_html=True)
 if st.button("HOME"):
     navigate_to("main")
 
-if st.button("등록"):
-    navigate_to("insert")
+if st.button("등록"):  # 만약 등록버튼을 클릭하면?
+    navigate_to("insert")  # insert값을 전달
 st.markdown("<hr>", unsafe_allow_html=True)
 
 #############
-## 3. BODY ##
+## 3. PAGE ##
 #############
-
 def main_page():
-    # 검색
-    # 조회(전체 데이터)
+    # [전체 도서 데이터 조회]
     rows = book_service.get_books()
+    
+    # [도서 검색]
+    with st.form("search_form"):
+        keyword = st.text_input("도서검색")
+        submitted = st.form_submit_button("검색")
+        if submitted:
+            rows = book_service.search_books(keyword)
+            st.write(f'"{keyword}"로 검색한 결과는 총 {len(rows)}건 입니다.')
+
+    
     event = st.dataframe(rows,
-                         on_select="rerun",
+                         on_select="rerun",  
                          selection_mode="single-row",
                          use_container_width=True,
                          hide_index=True)
@@ -79,9 +87,9 @@ def insert_page():
 def update_page():
     pass
 
-################
-## 4. CONTROL ##
-################
+#####################
+## 4. PAGE CONTROL ##
+#####################
 
 if st.session_state["page"] == "main":
     main_page()
