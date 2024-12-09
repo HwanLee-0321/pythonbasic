@@ -72,7 +72,7 @@ def main_page():
         submitted = st.form_submit_button("검색")
         if submitted:
             rows = book_service.search_books(keyword)
-            st.write(f'"{keyword}"로 검색한 결과는 총 {len(rows)}건 입니다.')
+            st.write(f'"{keyword}" 으/로 검색한 결과는 총 {len(rows)}건 입니다.')
 
     
     event = st.dataframe(rows,
@@ -80,12 +80,97 @@ def main_page():
                          selection_mode="single-row",
                          use_container_width=True,
                          hide_index=True)
+    if len(event.selection["rows"]):
+        # 수정, 삭제에서는 사용자가 선택한 값이 필요!
+        #  → 사용자가 선택한 idx의 행(row)값을 가져오기
+        selected_idx = event.selection["rows"][0]
+        book_isbn = rows.iloc[selected_idx]["book_ISBN"]
+        book_name = rows.iloc[selected_idx]["book_name"]
+        book_writer = rows.iloc[selected_idx]["book_writer"]
+        book_publisher = rows.iloc[selected_idx]["book_publisher"]
+        book_price = rows.iloc[selected_idx]["book_price"]
+        register_at = rows.iloc[selected_idx]["register_at"]
+        useyn = rows.iloc[selected_idx]["useyn"]
+        
+        data = {
+            "book_isbn": book_isbn, 
+            "book_name": book_name,
+            "book_writer": book_writer,
+            "book_publisher": book_publisher,
+            "book_price": book_price,
+            "register_at": register_at,
+            "useyn": useyn 
+        }
+        # data를 Update 페이지에서도 활용하기 위해
+        # 공용저장소에 저장!
+        st.session_state["data"] = data
+        
+        if st.button("수정"):
+            navigate_to("update")
+        if st.button("삭제"):
+            pass
+        
+
+
 
 def insert_page():
-    pass
+    with st.form("insert_form"):
+        book_name = st.text_input("book_name")
+        book_writer = st.text_input("book_writer")
+        book_publisher = st.text_input("book_publisher")
+        book_price = st.text_input("book_price")
+        submitted = st.form_submit_button("등록")
+        
+        book = {
+            "book_name":book_name,
+            "book_writer":book_writer,
+            "book_publisher":book_publisher,
+            "book_price":book_price
+        }
+        
+        if submitted:
+            book_service.insert_books(book)
+            navigate_to("main")
+        
+        
+
 
 def update_page():
-    pass
+    # Access data from session state
+    row = st.session_state["data"]
+    
+    st.write("도서 수정")
+    # Create a form for updating the book information
+    with st.form("update_form"):
+        # Populate the form with the existing book details
+        book_ISBN = st.text_input("ISBN", value=row["book_isbn"])
+        book_name = st.text_input("도서명", value=row["book_name"])
+        book_writer = st.text_input("저자", value=row["book_writer"])
+        book_publisher = st.text_input("출판사", value=row["book_publisher"])
+        book_price = st.text_input("가격", value=row["book_price"])
+        register_at = st.text_input("등록일자", value=row["register_at"])
+        useyn = st.text_input("사용유무", value=row["useyn"])
+        
+        # Submit button for the form
+        submit_button = st.form_submit_button("수정 완료")
+        
+        if submit_button:
+            # Collect updated values into a dictionary
+            updated_book = {
+                "book_ISBN": book_ISBN,
+                "book_name": book_name,
+                "book_writer": book_writer,
+                "book_publisher": book_publisher,
+                "book_price": book_price,
+                "register_at": register_at,
+                "useyn": useyn
+            }
+            # Call the update function from your book service
+            book_service.update_book(updated_book)  # Make sure this function is defined
+            # After updating, navigate back to the main page
+            navigate_to("main")
+
+    
 
 #####################
 ## 4. PAGE CONTROL ##
