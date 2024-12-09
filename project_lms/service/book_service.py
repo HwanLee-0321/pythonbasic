@@ -45,6 +45,7 @@ from common.connection import connection
 #  2) Django 매우 어려움, FastAPI 매우 쉬움
 #  3) Web(Spring-JAVA) + AI(Python)
 
+
 def get_books():
     conn = connection()
     try:
@@ -65,6 +66,8 @@ def get_books():
         if conn and conn.open:
             conn.close()
     return rows
+
+
 # 도서 검색
 def search_books(keyword: str):
     conn = connection()
@@ -91,10 +94,49 @@ def search_books(keyword: str):
 
 # 도서 등록
 def insert_books(book:dict):
-    pass
+    conn = connection()
+    try:
+        curs = conn.cursor()
+        sql = """
+            INSERT INTO tbl_book(book_name, book_writer, book_publisher, book_price) 
+            VALUES(%(book_name)s, %(book_writer)s, %(book_publisher)s, %(book_price)s);           
+        """
+        curs.execute(sql, book)
+    except Exception as e:
+        print(f"Error occurred: {e}")
+    finally:
+        if curs:
+            curs.close()
+        if conn and conn.open:
+            conn.close()
+
+# ※ SQL의 UPDATE문과 DELETE문은 반드시 WHERE절과 함께 사용할 것!!!!!!
+
 # 도서 수정
 def update_book(book: dict):
-    pass
+    conn = connection()
+    try:
+        curs = conn.cursor()
+        sql = """
+            UPDATE tbl_book
+            SET book_name = %(book_name)s,
+                book_writer = %(book_writer)s,
+                book_publisher = %(book_publisher)s,
+                book_price = %(book_price)s,
+                register_at = %(register_at)s,
+                useyn = %(useyn)s
+            WHERE book_ISBN = %(book_ISBN)s;
+        """
+        curs.execute(sql, book)
+    except Exception as e:
+        print(f"Error occurred: {e}")
+    finally:
+        if curs:
+            curs.close()
+        if conn and conn.open:
+            conn.close()
+
+
 # 도서 삭제
 def delete_book(book_inbn: dict):
     pass
