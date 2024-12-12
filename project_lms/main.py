@@ -1,3 +1,5 @@
+# CRUD(등록, 수정, 삭제, 조회, 검색)
+# 프로그래밍언어 → 알고리즘 풀이 → 실무(비즈니스 로직)ㄴ
 # streamlit run project_lms/main.py
 from service import book_service
 import streamlit as st
@@ -108,9 +110,11 @@ def main_page():
         if st.button("수정"):
             navigate_to("update")
         if st.button("삭제"):
-            pass
-        
-
+            # 삭제시 유일하게 식별할 수 있는 값을 사용해서 조건을 주기
+            book_service.delete_book(book_isbn)  # DB에서 해당 ISBN의 도서를 삭제
+            navigate_to("main")  # 도서 삭제후 최신화된 정보 출력        
+            # TIP: INSERT(등록), UPDATE(수정), DELETE(삭제) 후 반드시 refresh
+            
 
 
 def insert_page():
